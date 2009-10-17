@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/benofsky/ohembedr/}
   
   s.summary = %q{OhEmbedr is a super simple ruby OEmbed library.}
-  s.description = %q{OhEmbedr is a super simple ruby OEmbed library.}
+  s.description = %q{OhEmbedr is a super simple ruby OEmbed library.git}
     
   s.files = ["LICENSE", "lib/ohembedr.rb"]
   

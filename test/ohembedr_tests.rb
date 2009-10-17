@@ -1,4 +1,4 @@
-require '../lib/ohembedr.rb'
+require 'lib/ohembedr.rb'
 require 'test/unit'
 
 class OhEmbedrTest < Test::Unit::TestCase
@@ -11,8 +11,8 @@ class OhEmbedrTest < Test::Unit::TestCase
   end
   
   def test_provider_check
-    assert_raise(OhEmbedr::UnsupportedError)              {OhEmbedr::OhEmbedr.new(:url => "http://google.com")}
-    assert_nothing_raised(OhEmbedr::UnsupportedError)     {OhEmbedr::OhEmbedr.new(:url => "http://vimeo.com")}
+    assert_raise(OhEmbedr::UnsupportedError)          { OhEmbedr::OhEmbedr.new(:url => "http://google.com") }
+    assert_nothing_raised(OhEmbedr::UnsupportedError) { OhEmbedr::OhEmbedr.new(:url => "http://vimeo.com") }
   end
   
   def test_gets
@@ -25,4 +25,10 @@ class OhEmbedrTest < Test::Unit::TestCase
     # Make sure there's the right kinda stuff in there
     assert_equal o.hash["type"], "video"
   end  
+  
+  def test_gem_build
+    assert_nothing_raised(LoadError) do 
+      require 'ohembedr'
+    end
+  end
 end
