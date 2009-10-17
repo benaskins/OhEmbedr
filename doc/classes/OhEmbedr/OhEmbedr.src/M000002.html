@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>gets (OhEmbedr::OhEmbedr)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File ohembedr.rb, line 99</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">gets</span>
+      <span class="ruby-keyword kw">begin</span>
+        <span class="ruby-identifier">data</span> = <span class="ruby-identifier">make_http_request</span>
+        <span class="ruby-ivar">@hash</span> = <span class="ruby-identifier">send</span>(<span class="ruby-ivar">@@formats</span>[<span class="ruby-ivar">@format</span>][<span class="ruby-identifier">:oembed_parser</span>], <span class="ruby-identifier">data</span>) <span class="ruby-comment cmt"># Call the method specified in default_formats hash above</span>
+      <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">RuntimeError</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">e</span>.<span class="ruby-identifier">message</span> <span class="ruby-operator">==</span> <span class="ruby-value str">&quot;401&quot;</span>
+          <span class="ruby-comment cmt"># Embedding disabled</span>
+          <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">nil</span>        
+        <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">e</span>.<span class="ruby-identifier">message</span> <span class="ruby-operator">==</span> <span class="ruby-value str">&quot;501&quot;</span>
+          <span class="ruby-comment cmt"># Format not supported</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">UnsupportedError</span>, <span class="ruby-node">&quot;#{@format} not supported by #{@domain}&quot;</span>
+        <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">e</span>.<span class="ruby-identifier">message</span> <span class="ruby-operator">==</span> <span class="ruby-value str">&quot;404&quot;</span>
+          <span class="ruby-comment cmt"># Not found</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">Error</span>, <span class="ruby-node">&quot;#{@url} not found&quot;</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

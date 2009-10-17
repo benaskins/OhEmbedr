@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: OhEmbedr::OhEmbedr</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">OhEmbedr::OhEmbedr</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../files/ohembedr_rb.html">
+                ohembedr.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                Object
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <h2>Using <a href="OhEmbedr.html">OhEmbedr</a></h2>
+<p>
+Using <a href="OhEmbedr.html">OhEmbedr</a> is super simple. Below is an
+example
+</p>
+<pre>
+  begin
+    o = OhEmbedr::OhEmbedr.new(:url =&gt; &quot;http://vimeo.com/6382511&quot;, :maxwidth =&gt; 600)
+    embed_data = o.gets
+  rescue OhEmbedr::UnsupportedError =&gt; error
+    # URL not supported
+  end
+</pre>
+<p>
+Wrapping in a <em>begin rescue</em> block allows us to pass any url to <a
+href="OhEmbedr.html">OhEmbedr</a> if an <a
+href="UnsupportedError.html">UnsupportedError</a> exception is raised then
+we know the url is not supported and can continue
+</p>
+
+    </div>
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000002">gets</a>&nbsp;&nbsp;
+      <a href="#M000001">new</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+    <div id="attribute-list">
+      <h3 class="section-bar">Attributes</h3>
+
+      <div class="name-list">
+        <table>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">format</td>
+          <td class="context-item-value">&nbsp;[R]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">hash</td>
+          <td class="context-item-value">&nbsp;[R]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">request_url</td>
+          <td class="context-item-value">&nbsp;[R]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">url</td>
+          <td class="context-item-value">&nbsp;[R]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        </table>
+      </div>
+    </div>
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000001" class="method-detail">
+        <a name="M000001"></a>
+
+        <div class="method-heading">
+          <a href="OhEmbedr.src/M000001.html" target="Code" class="method-signature"
+            onclick="popupCode('OhEmbedr.src/M000001.html');return false;">
+          <span class="method-name">new</span><span class="method-args">(options)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Options can be any of the following:
+</p>
+<ul>
+<li><tt>:url</tt> - The url we want to embed, or attempt to embed (required)
+
+</li>
+<li><tt>:providers</tt> - A hash of providers, if not provided the default list
+is used. Must be in the format. <tt>:base</tt> is the base url for the
+oembed service provider and <tt>:dot_format</tt> is true if the format is
+specified like <tt><a
+href="http://example.com/api/oembed.format">example.com/api/oembed.format</a></tt>
+opposed to a GET paramater:
+
+<pre>
+  {&quot;example.com&quot; =&gt; {:base =&gt; &quot;http://example.com/api/oembed&quot;, :dot_format =&gt; true}}
+</pre>
+</li>
+<li><tt>:format</tt> - The format you want to make the request in, the default
+is json. You may also use xml. If you&#8216;re using json you need to have
+the json gem installed and you need the xml-simple gem for xml.
+
+</li>
+<li>Any other items in the options hash are appended to the oembed url as GET
+paramaters. Can be used to specify maxwidth, maxheight, etc.
+
+</li>
+</ul>
+        </div>
+      </div>
+
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000002" class="method-detail">
+        <a name="M000002"></a>
+
+        <div class="method-heading">
+          <a href="OhEmbedr.src/M000002.html" target="Code" class="method-signature"
+            onclick="popupCode('OhEmbedr.src/M000002.html');return false;">
+          <span class="method-name">gets</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Calling <tt><a href="OhEmbedr.html#M000002">gets</a></tt> returns a hash
+containing the oembed data.
+</p>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>
