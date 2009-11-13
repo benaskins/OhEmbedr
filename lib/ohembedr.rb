@@ -76,7 +76,7 @@ module OhEmbedr
       
       # Split the url up and check it's an ok protocol
       broken_url = options[:url].split("/")
-      raise UnsupportedError, "Unspported protocol" if broken_url.count == 1 || (broken_url[0] != "http:" && broken_url[0] != "https:")
+      raise UnsupportedError, "Unspported protocol" if broken_url.length == 1 || (broken_url[0] != "http:" && broken_url[0] != "https:")
       
       @domain = broken_url[2].sub("www.", "")      
       raise UnsupportedError, "Unsupported provider" if @providers[@domain] == nil      
@@ -133,7 +133,7 @@ module OhEmbedr
     end
     
     def make_http_request      
-      response = Net::HTTP.get_response(URI.parse(@request_url))      
+      response = Net::HTTP.get_response(URI.parse(@request_url))    
       raise response.code if response.code != "200"      
       return response.body      
     end
@@ -158,7 +158,7 @@ module OhEmbedr
         return true
       rescue LoadError
         # If the user requested the format and it failed. Just give up!
-        raise Error "Please install: '#{@@formats[@format][:require]}' to use #{@format} format." unless requested_format.nil?
+        raise Error("Please install: '#{@@formats[@format][:require]}' to use #{@format} format.") unless requested_format.nil?
 
         # Otherwise lets exhaust all our other options first
         available_formats = @@formats
